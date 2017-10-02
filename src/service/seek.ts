@@ -1,4 +1,3 @@
-import * as express from 'express';
 import {CollectionRequest} from '../model/CollectionRequest';
 import {CollectionResponse} from '../model/CollectionResponse';
 

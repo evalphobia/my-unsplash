@@ -1,6 +1,6 @@
 import * as express from 'express';
-import {isSet} from '../helper/type';
 import {CollectionRequest} from '../model/CollectionRequest';
+import {CollectionResponse} from '../model/CollectionResponse';
 import {Validation} from '../model/Validation';
 import * as seekService from '../service/seek';
 
@@ -19,6 +19,6 @@ export function seekCollection(req: express.Request, res: express.Response): voi
     });
   }
 
-  // result = seekService.seekCollection(queryModel)
-  res.send(query);
+  const result: CollectionResponse = seekService.seekCollection(queryModel)
+  res.send(result);
 }
