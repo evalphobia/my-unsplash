@@ -1,11 +1,12 @@
 import * as express from 'express';
+import {CollectionRequest} from '../model/CollectionRequest';
+import {CollectionResponse} from '../model/CollectionResponse';
 
 /**
- * GET /collection/seek
- * Return collection from Unsplash.
+ * seekCollection seeks collection from Unsplash API.
+ * @param req request parameter.
+ * @returns return result value.
  */
-export function seekCollection(req: express.Request, res: express.Response): void {
-  res.send({
-    status: true
-  });
+export function seekCollection(req: CollectionRequest): CollectionResponse {
+  return <CollectionResponse>{}
 }

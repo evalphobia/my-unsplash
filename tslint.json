@@ -11,6 +11,7 @@
     "no-duplicate-variable": true,
     "no-unused-variable": true,
     "no-require-imports": false,
+    "no-any": false,
     "export-name": false,
     "curly": true,
     "class-name": true,
