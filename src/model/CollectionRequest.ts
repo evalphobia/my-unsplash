@@ -34,10 +34,18 @@ export class CollectionRequest {
   }
 
   /**
-   * getTheme returns `theme` paramter.
+   * getTheme returns `theme` parameter.
    * @returns 'theme' for search query of Unsplash collection
    */
   public getTheme(): string {
     return this.theme
+  }
+
+  /**
+   * getFilters returns array of `filter` parameter.
+   * @returns 'filter' parameter to filtering contents
+   */
+  public getFilters(): string[] {
+    return this.parsedFilter
   }
 }

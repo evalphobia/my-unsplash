@@ -9,7 +9,7 @@ import {unsplash} from './unsplash';
  * @returns collection list data
  */
 export async function searchCollections(query: string): Promise<UnsplashCollection[]> {
-  logDebug(`searchCollections(${query})`)
+  logDebug(`unsplash.searchCollections(${query})`)
   if (isDebug()) {
       return new Promise((resolve: (value?: UnsplashCollection[]) => void): void => {
         resolve(getDummyCollections())
@@ -17,7 +17,7 @@ export async function searchCollections(query: string): Promise<UnsplashCollecti
   }
 
   const result: Promise<UnsplashCollectionResponse> = callSearchCollectionsAPI(query)
-  logDebug(`searchCollections result = ${JSON.stringify(result)}`)
+  logDebug(`unsplash.searchCollections result = ${JSON.stringify(result)}`)
 
   // convert Unsplash response into our collection model
   return result.then((res: UnsplashCollectionResponse ) => {
@@ -31,10 +31,10 @@ export async function searchCollections(query: string): Promise<UnsplashCollecti
  * @returns JSON response from /search/collection API
  */
 async function callSearchCollectionsAPI(query: string): Promise<UnsplashCollectionResponse> {
-  logDebug(`callSearchCollectionsAPI(${query})`)
+  logDebug(`unsplash.callSearchCollectionsAPI(${query})`)
 
   try {
-    return await unsplash.search.collections(query)
+    return unsplash.search.collections(query)
       .then(toJson)
       .catch((err: {}) => {
         throw new Error(`unsplash.search.collections(${query}) error: ${err}`)
@@ -49,7 +49,7 @@ async function callSearchCollectionsAPI(query: string): Promise<UnsplashCollecti
  * @returns Dummy JSON response from /search/collection API
  */
 function getDummyCollections(): UnsplashCollection[] {
-  logDebug('getDummyCollections()')
+  logDebug('unsplash.getDummyCollections()')
   const data: UnsplashCollectionResponse = require(`${dummyDataPath}example_search_collections.json`)
 
   return <UnsplashCollection[]> data.results

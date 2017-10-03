@@ -48,6 +48,7 @@
     "typescript": "^2.5.3"
   },
   "dependencies": {
+    "@google-cloud/vision": "^0.12.0",
     "compression": "^1.7.1",
     "dotenv": "^4.0.0",
     "errorhandler": "^1.5.0",

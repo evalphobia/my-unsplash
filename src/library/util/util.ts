@@ -37,7 +37,14 @@ export function logDebug(val: {}): void {
   if (production) {
     return
   }
-  console.log(`[DEBUG] ${val}`)
+
+  const maxSize: number = 300
+  const time: string = (new Date()).toLocaleTimeString()
+  let msg: string = `[DEBUG] [${time}] ${val}`
+  if (msg.length > maxSize) {
+    msg = `${msg.substr(0, maxSize)}...`
+  }
+  console.log(msg)
 }
 
 /**
@@ -45,7 +52,8 @@ export function logDebug(val: {}): void {
  * @param val error data or message.
  */
 export function logError(val: {}): void {
-  console.error(`[ERROR] ${val}`)
+  const time: string = (new Date()).toLocaleTimeString()
+  console.error(`[ERROR] [${time}] ${JSON.stringify(val)}`)
 }
 
 /**

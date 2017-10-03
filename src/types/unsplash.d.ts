@@ -13,7 +13,7 @@ interface SearchAPI {
 }
 
 interface CollectionAPI {
-	getCollectionPhotos(collectionId: number): Promise<any>
+	getCollectionPhotos(collectionId: number, page?: number, perPage?: number): Promise<any>
 }
 
 interface UnsplashStatic {

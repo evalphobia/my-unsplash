@@ -9,17 +9,21 @@ import {unsplash} from './unsplash';
  * @param list collection list of Unsplash
  * @returns photo list data
  */
-export function getPhotosFromCollections(list: UnsplashCollection[]): UnsplashPhoto[] {
+export async function getPhotosFromCollections(list: UnsplashCollection[]): Promise<UnsplashPhoto[]> {
   if (isDebug()) {
-    return getDummyPhotos()
+    return new Promise((resolve: (value?: UnsplashPhoto[]) => void): void => {
+      resolve(getDummyPhotos())
+    })
   }
 
-  const result: UnsplashPhoto[] = []
-  list.forEach(async (item: UnsplashCollection) => {
-    Array.prototype.push.apply(result, await callGetCollectionPhotosAPI(item.id));
+  return Promise.all(list.map(async (item: UnsplashCollection) => {
+    return callGetCollectionPhotosAPI(item.id)
+  })).then((result: UnsplashPhoto[][]) => {
+    return result.reduce((a: UnsplashPhoto[], b: UnsplashPhoto[]) => {
+      // flattern 2d arrays
+      return a.concat(b)
+    })
   })
-
-  return result
 }
 
 /**
@@ -28,16 +32,18 @@ export function getPhotosFromCollections(list: UnsplashCollection[]): UnsplashPh
  * @returns JSON response from /collections/:id/photos API
  */
 async function callGetCollectionPhotosAPI(id: number): Promise<UnsplashPhoto[]> {
-  logDebug(`callGetCollectionPhotosAPI(${id})`)
+  logDebug(`unsplash.callGetCollectionPhotosAPI(${id})`)
+  const firstPage: number = 1
+  const maxPhotos: number = 8 // only 8 photos to fetch
 
   try {
-    return await unsplash.collections.getCollectionPhotos(id)
+    return unsplash.collections.getCollectionPhotos(id, firstPage, maxPhotos)
       .then(toJson)
       .then((res: UnsplashPhotoResponse) => {
         logDebug(`unsplash.collections.getCollectionPhotos(${id}): res = ${JSON.stringify(res)}`)
 
         // convert response into our photo model
-        return newUnsplashPhotos(res.results, id)
+        return newUnsplashPhotos(res, id)
       })
   } catch (err) {
     throw new Error(`searchCollections error: ${err}`)
@@ -49,7 +55,7 @@ async function callGetCollectionPhotosAPI(id: number): Promise<UnsplashPhoto[]> 
  * @returns Dummy JSON response from /collections/:id/photos API
  */
 function getDummyPhotos(): UnsplashPhoto[] {
-  logDebug('getDummyPhotos()')
+  logDebug('unsplash.getDummyPhotos()')
   const jsonData: UnsplashPhotoResponsePart[] = require(`${dummyDataPath}example_collection_photos.json`)
 
   return newUnsplashPhotos(jsonData, 0)
@@ -70,9 +76,7 @@ export type UnsplashPhoto = {
 /**
  * UnsplashPhotoResponse is /collections/:id/photos API response
  */
-type UnsplashPhotoResponse = {
-  results: UnsplashPhotoResponsePart[]
-}
+type UnsplashPhotoResponse = UnsplashPhotoResponsePart[]
 
 /**
  * UnsplashPhotoResponsePart is part of /collections/:id/photos API response
