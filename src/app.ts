@@ -1,15 +1,10 @@
-/**
- * Module dependencies.
- */
-import * as compression from 'compression';  // compresses requests
+import * as compression from 'compression';
 import * as dotenv from 'dotenv';
 import * as errorHandler from 'errorhandler';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as path from 'path';
-import {isSet} from './helper/type';
-
-import expressValidator = require('express-validator')
+import {init, isSet} from './library/util/util';
 
 const app: express.Express = express();
 const env: string = String(app.get('env'));
@@ -17,20 +12,14 @@ const env: string = String(app.get('env'));
 function isProd(): boolean {
   return env === 'production';
 }
+init(isProd(), env === 'debug')
 
 /**
- * Load environment variables from .env file, where API keys and passwords are configured.
+ * Load environment variables from .env file, where API keys are configured.
  */
 dotenv.config({
   path: path.join(__dirname, '..', 'config', 'environment', `.env.${env}`)
 })
-console.log(path.join(__dirname, '..', 'config', 'environment', `.env.${env}`))
-
-/**
- * Controllers (route handlers).
- */
-import * as collectionController from './controller/collection';
-import * as statusController from './controller/status';
 
 /**
  * Express configuration.
@@ -49,11 +38,12 @@ if (isProd()) {
 } else {
   app.use(logger('dev'));
 }
-app.use(expressValidator());
 
 /**
  * Primary app routes.
  */
+import * as collectionController from './controller/collection';
+import * as statusController from './controller/status';
 app.get('/status', statusController.getStatus);
 app.get('/status/config', statusController.getConfig);
 app.get('/collection/seek', collectionController.seekCollection);

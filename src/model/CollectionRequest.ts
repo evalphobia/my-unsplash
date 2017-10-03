@@ -1,8 +1,8 @@
-import {isSet} from '../helper/type';
+import {isSet} from '../library/util/util';
 import {Validation} from './Validation'
 
 /**
- * Request for collection api
+ * User request for collection api
  */
 export class CollectionRequest {
   private theme: string
@@ -31,5 +31,13 @@ export class CollectionRequest {
     }
 
     return validation
+  }
+
+  /**
+   * getTheme returns `theme` paramter.
+   * @returns 'theme' for search query of Unsplash collection
+   */
+  public getTheme(): string {
+    return this.theme
   }
 }

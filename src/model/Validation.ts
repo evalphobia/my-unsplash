@@ -1,4 +1,4 @@
-import {isNull} from '../helper/type';
+import {isNull} from '../library/util/util';
 
 /**
  * Parameter validation model
@@ -65,6 +65,11 @@ export class Validation {
   }
 }
 
+/**
+ * IErrorData contains error map data.
+ * 'key' = parameter name
+ * 'value' = error message
+ */
 interface IErrorData {
   [key: string]: string;
 }
