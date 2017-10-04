@@ -23,7 +23,8 @@
     "testRegex": "/test/.*\\.test\\.(ts|js)$",
     "moduleFileExtensions": [
       "ts",
-      "js"
+      "js",
+      "json"
     ],
     "testEnvironment": "node"
   },
