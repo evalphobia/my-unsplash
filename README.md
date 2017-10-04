@@ -1,5 +1,15 @@
 my-unsplash
 ----
+[![License: MIT][3]][4] [![Build Status][7]][8]
+
+[3]: https://img.shields.io/badge/License-MIT-blue.svg
+[4]: LICENSE.md
+[7]: https://travis-ci.org/evalphobia/my-unsplash.svg?branch=master
+[8]: https://travis-ci.org/evalphobia/my-unsplash
+[11]: https://codecov.io/github/evalphobia/my-unsplash/coverage.svg?branch=master
+[12]: https://codecov.io/github/evalphobia/my-unsplash?branch=master
+
+
 My Unsplash app
 
 ----
