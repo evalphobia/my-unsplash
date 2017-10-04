@@ -3,6 +3,7 @@ import * as path from 'path';
 let production: boolean;
 let debug: boolean;
 export let showApiInfo: boolean;
+export let useDummyFile: boolean;
 
 /**
  * init setup current environment.
@@ -13,6 +14,7 @@ export function init(isProdEnv: boolean, isDebugEnv: boolean): void {
   production = isProdEnv;
   debug = isDebugEnv;
   showApiInfo = (process.env.SHOW_API_INFO === 'true')
+  useDummyFile = (process.env.USE_DUMMY_FILE === 'true')
 }
 
 /**

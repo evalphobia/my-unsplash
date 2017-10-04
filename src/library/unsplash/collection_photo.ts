@@ -1,5 +1,5 @@
 import { toJson } from 'unsplash-js';
-import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
+import {dummyDataPath, logApiInfo, logDebug, useDummyFile} from '../util/util';
 import {UnsplashCollection} from './search_collection';
 import {unsplash} from './unsplash';
 
@@ -10,7 +10,7 @@ import {unsplash} from './unsplash';
  * @returns photo list data
  */
 export async function getPhotosFromCollections(list: UnsplashCollection[]): Promise<UnsplashPhoto[]> {
-  if (isDebug()) {
+  if (useDummyFile) {
     return new Promise((resolve: (value?: UnsplashPhoto[]) => void): void => {
       resolve(getDummyPhotos())
     })

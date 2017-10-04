@@ -1,5 +1,5 @@
 import * as vision from '@google-cloud/vision'
-import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
+import {dummyDataPath, logApiInfo, logDebug, useDummyFile} from '../util/util';
 
 const visionClient: GoogleVisionClient = vision({
   projectId: String(process.env.GCLOUD_PROJECT),
@@ -13,7 +13,7 @@ const visionClient: GoogleVisionClient = vision({
  * @returns label list data
  */
 export async function annotateImages(urls: string[]): Promise<VisionLabel[]> {
-  if (isDebug()) {
+  if (useDummyFile) {
     return new Promise((resolve: (value?: VisionLabel[]) => void): void => {
       resolve(getDummyLabels())
     })

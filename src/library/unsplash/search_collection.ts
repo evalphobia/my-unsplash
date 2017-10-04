@@ -1,5 +1,5 @@
 import { toJson } from 'unsplash-js';
-import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
+import {dummyDataPath, logApiInfo, logDebug, useDummyFile} from '../util/util';
 import {unsplash} from './unsplash';
 
 /**
@@ -10,7 +10,7 @@ import {unsplash} from './unsplash';
  */
 export async function searchCollections(query: string): Promise<UnsplashCollection[]> {
   logDebug(`unsplash.searchCollections(${query})`)
-  if (isDebug()) {
+  if (useDummyFile) {
       return new Promise((resolve: (value?: UnsplashCollection[]) => void): void => {
         resolve(getDummyCollections())
       })

@@ -13,6 +13,7 @@
     "no-require-imports": false,
     "non-literal-require": false,
     "no-any": false,
+    "mocha-no-side-effect-code": false,
     "export-name": false,
     "curly": true,
     "class-name": true,
