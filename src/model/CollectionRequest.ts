@@ -48,4 +48,12 @@ export class CollectionRequest {
   public getFilters(): string[] {
     return this.parsedFilter
   }
+
+  /**
+   * hasFilters checks if `filter` parameter is set or not.
+   * @returns 'filter' is set or not
+   */
+  public hasFilters(): boolean {
+    return this.parsedFilter.length !== 0
+  }
 }

@@ -1,5 +1,5 @@
 import * as vision from '@google-cloud/vision'
-import {dummyDataPath, isDebug, logDebug} from '../util/util';
+import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
 
 const visionClient: GoogleVisionClient = vision({
   projectId: String(process.env.GCLOUD_PROJECT),
@@ -70,7 +70,7 @@ async function callBatchAnnotateImagesAPI(requests: GoogleVisionRequest[]): Prom
 
   return visionClient.batchAnnotateImages(requests)
     .then((res: GoogleVisionResponse[]) => {
-      logDebug(`visionClient.batchAnnotateImages(): res = ${JSON.stringify(res)}`)
+      logApiInfo(`[visionClient.batchAnnotateImages] ${JSON.stringify(res)}`)
 
       // convert response into our photo model
       return newVisionLabel(res)

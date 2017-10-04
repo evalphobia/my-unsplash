@@ -1,5 +1,5 @@
 import { toJson } from 'unsplash-js';
-import {dummyDataPath, isDebug, logDebug} from '../util/util';
+import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
 import {unsplash} from './unsplash';
 
 /**
@@ -17,7 +17,7 @@ export async function searchCollections(query: string): Promise<UnsplashCollecti
   }
 
   const result: Promise<UnsplashCollectionResponse> = callSearchCollectionsAPI(query)
-  logDebug(`unsplash.searchCollections result = ${JSON.stringify(result)}`)
+  logApiInfo(`[unsplash.search.collections(${query})] ${JSON.stringify(result)}`)
 
   // convert Unsplash response into our collection model
   return result.then((res: UnsplashCollectionResponse ) => {
@@ -33,15 +33,11 @@ export async function searchCollections(query: string): Promise<UnsplashCollecti
 async function callSearchCollectionsAPI(query: string): Promise<UnsplashCollectionResponse> {
   logDebug(`unsplash.callSearchCollectionsAPI(${query})`)
 
-  try {
-    return unsplash.search.collections(query)
-      .then(toJson)
-      .catch((err: {}) => {
-        throw new Error(`unsplash.search.collections(${query}) error: ${err}`)
-      })
-  } catch (err) {
-    throw new Error(`callSearchCollectionsAPI error: ${err}`)
-  }
+  return unsplash.search.collections(query)
+    .then(toJson)
+    .catch((err: {}) => {
+      throw new Error(`unsplash.search.collections(${query}) error: ${err}`)
+    })
 }
 
 /**

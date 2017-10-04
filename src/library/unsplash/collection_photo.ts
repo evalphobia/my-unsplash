@@ -1,5 +1,5 @@
 import { toJson } from 'unsplash-js';
-import {dummyDataPath, isDebug, logDebug} from '../util/util';
+import {dummyDataPath, isDebug, logApiInfo, logDebug} from '../util/util';
 import {UnsplashCollection} from './search_collection';
 import {unsplash} from './unsplash';
 
@@ -36,18 +36,14 @@ async function callGetCollectionPhotosAPI(id: number): Promise<UnsplashPhoto[]> 
   const firstPage: number = 1
   const maxPhotos: number = 8 // only 8 photos to fetch
 
-  try {
-    return unsplash.collections.getCollectionPhotos(id, firstPage, maxPhotos)
-      .then(toJson)
-      .then((res: UnsplashPhotoResponse) => {
-        logDebug(`unsplash.collections.getCollectionPhotos(${id}): res = ${JSON.stringify(res)}`)
+  return unsplash.collections.getCollectionPhotos(id, firstPage, maxPhotos)
+    .then(toJson)
+    .then((res: UnsplashPhotoResponse) => {
+      logApiInfo(`[unsplash.collections.getCollectionPhotos(${id})] ${JSON.stringify(res)}`)
 
-        // convert response into our photo model
-        return newUnsplashPhotos(res, id)
-      })
-  } catch (err) {
-    throw new Error(`searchCollections error: ${err}`)
-  }
+      // convert response into our photo model
+      return newUnsplashPhotos(res, id)
+    })
 }
 
 /**

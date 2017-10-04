@@ -2,15 +2,17 @@ import * as path from 'path';
 
 let production: boolean;
 let debug: boolean;
+export let showApiInfo: boolean;
 
 /**
  * init setup current environment.
  * @param isProd production flag
  * @param isDebug debug flag
  */
-export function init(isProd: boolean, isDebug: boolean): void {
-  production = isProd;
-  debug = isDebug;
+export function init(isProdEnv: boolean, isDebugEnv: boolean): void {
+  production = isProdEnv;
+  debug = isDebugEnv;
+  showApiInfo = (process.env.SHOW_API_INFO === 'true')
 }
 
 /**
@@ -54,6 +56,19 @@ export function logDebug(val: {}): void {
 export function logError(val: {}): void {
   const time: string = (new Date()).toLocaleTimeString()
   console.error(`[ERROR] [${time}] ${JSON.stringify(val)}`)
+}
+
+/**
+ * logApiInfo logs info from external API.
+ * @param val data.
+ */
+export function logApiInfo(val: {}): void {
+  if (!showApiInfo) {
+    return
+  }
+
+  const time: string = (new Date()).toLocaleTimeString()
+  console.log(`[API INFO] [${time}] ${JSON.stringify(val)}`)
 }
 
 /**
