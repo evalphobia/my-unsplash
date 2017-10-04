@@ -12,7 +12,6 @@ const env: string = String(app.get('env'));
 function isProd(): boolean {
   return env === 'production';
 }
-init(isProd(), env === 'debug')
 
 /**
  * Load environment variables from .env file, where API keys are configured.
@@ -20,6 +19,7 @@ init(isProd(), env === 'debug')
 dotenv.config({
   path: path.join(__dirname, '..', 'config', 'environment', `.env.${env}`)
 })
+init(isProd(), env === 'debug')
 
 /**
  * Express configuration.

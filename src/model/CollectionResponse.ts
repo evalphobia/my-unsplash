@@ -4,7 +4,7 @@ import {UnsplashPhoto} from '../library/unsplash/collection_photo';
  * CollectionResponse is response to user for collection api
  */
 export type CollectionResponse = {
-  filtered_collection_pictures: CollectionPicture[],
+  filtered_collection_pictures?: CollectionPicture[],
   collection_pictures: CollectionPicture[]
 }
 

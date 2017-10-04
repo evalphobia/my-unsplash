@@ -12,10 +12,14 @@ import {CollectionPicture, CollectionResponse, newCollectionPictures} from '../m
  */
 export async function seekCollection(req: CollectionRequest): Promise<CollectionResponse> {
   const pictures: CollectionPicture[] = await fetchPicturesFromUnsplash(req)
+  if (!req.hasFilters()) {
+    return { collection_pictures: pictures }
+  }
+
   const data: {pictures: CollectionPicture[],
       filtered_pictures: CollectionPicture[]} = await labelAndFilterPictures(pictures, req.getFilters())
 
-  return <CollectionResponse> {
+  return {
     filtered_collection_pictures: data.filtered_pictures,
     collection_pictures: data.pictures
   }
