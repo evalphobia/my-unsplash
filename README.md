@@ -22,9 +22,10 @@ Change your environment setting
 ```bash
 $ cat config/environment/.env.development
 
-UNSPLASH_APP_ID=  # <= Unsplash Application ID
-GCLOUD_PROJECT=   # <= GCP project id
-GCLOUD_KEY_FILE=  # <= GCP key file path
+UNSPLASH_APP_ID=    # <= Unsplash Application ID
+GCLOUD_PROJECT=     # <= GCP project id
+GCLOUD_KEY_FILE=    # <= GCP key file path
+SHOW_API_INFO=true  # <= Enable external API response logging
 ```
 
 ### Run server
@@ -67,6 +68,7 @@ $ curl "http://localhost:3000/status/config"
   "unsplash_application_id": "<Unsplash Application ID>",
   "gcp_project_id": "<GCP Project ID>",
   "gcp_key_file": "<GCP key file path>",
+  "show_api_info": true,
   "production": false,
   "debug": false
 }
