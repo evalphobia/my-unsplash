@@ -1,0 +1,24 @@
+{
+  "extends": "tslint-microsoft-contrib",
+  "rules": {
+    "no-console": [
+      ""
+    ],
+    "no-relative-imports": false,
+    "no-http-string": false,
+    "no-backbone-get-set-outside-model": false,
+    "no-unused-expression": true,
+    "no-duplicate-variable": true,
+    "no-unused-variable": true,
+    "no-require-imports": false,
+    "non-literal-require": false,
+    "no-any": false,
+    "export-name": false,
+    "curly": true,
+    "class-name": true,
+    "semicolon": [
+      "always"
+    ],
+    "triple-equals": true
+  }
+}
